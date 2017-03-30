@@ -39,20 +39,21 @@ def plotGraph(bookTitle, authName, authLoc, pubName, pubLoc, pubDate, isbn):
 
     data = Data([author, publisher])
 
-    box1 = list(
-        x=0.3,
-        y=0.5,
-        yanchor="top",
-        borderpad=2,
-        bordercolor=rgb(0.5, 0.1, 0.5),     # set this same as color of cluster 1
-        borderwidth=5,
-        text=paste(bookTitle),
-        align="left",
-        showarrow=F)
+    box1 = dict(x=1,
+                y=1,
+                yanchor="bottom",
+                borderpad=2,
+                bordercolor='rgb(0, 0, 0)',
+                borderwidth=1,
+                text='Book: {}<br>Author: {}<br>Publisher: {}'.format(bookTitle, authName, pubName),
+                font=dict(
+                    size=14),
+                align="left",
+                showarrow=False)
 
     layout = Layout(
         autosize=True,
-        annotations=list(box1),
+        annotations=[box1],
         geo=dict(
             countrycolor='rgb(102, 102, 102)',
             countrywidth=0.1,
@@ -75,15 +76,14 @@ def plotGraph(bookTitle, authName, authLoc, pubName, pubLoc, pubDate, isbn):
         ),
         hovermode='closest',
         showlegend=True,
-        title='Locations of ' + bookTitle,
+        title='<b>Locations of {}</b>'.format(bookTitle),
 
         margin=dict(l=5, r=5, b=10, t=70, pad=2)
     )
 
-
     fig = Figure(data=data, layout=layout)
     # plots the graph
-    plotly.offline.plot(fig, filename='map.html')
+    plotly.offline.plot(fig, filename='map2.html')
 
 
 # example for demo
