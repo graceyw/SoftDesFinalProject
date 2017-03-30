@@ -1,4 +1,4 @@
-# Architectural Review: Preparation Document
+# Architectural Review: Reflection
 
 ## Software Design Final Project
 ### **Team interWEBS:** Gracey Wilson, Sam Eppinger, Sarah Barden, Rowan Sharman
