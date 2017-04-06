@@ -2,25 +2,27 @@
 
 import plotly
 from plotly.graph_objs import Choropleth, Data, Layout, Figure
+from classBook import Book
 
 
-def plotGraph(bookTitle, authName, authLoc, pubName, pubLoc, pubDate, isbn):
+def plotGraph(book):
 
-    # making a choropleth for the author's location
+    # makes a choropleth for the author's location
     author = Choropleth(
         z=['1'],
         autocolorscale=False,
         colorscale=[[0, 'rgb(255,255,255)'], [1, 'rgb(68,94,150)']],
         hoverinfo='text',
         locationmode='country names',
-        locations=[authLoc],
+        locations=[book.authorLoc],
         name='Author',
         showscale=False,
-        text=[authName+' is from ' + authLoc],
+        text=[book.authorLoc],
         zauto=False,
         zmax=1,
         zmin=0,
     )
+
     # making a choropleth for the publisher's location.
     publisher = Choropleth(
         z=['1'],
@@ -28,24 +30,27 @@ def plotGraph(bookTitle, authName, authLoc, pubName, pubLoc, pubDate, isbn):
         colorscale=[[0, 'rgb(255,255,255)'], [1, 'rgb(186,58,51)']],
         hoverinfo='text',
         locationmode='country names',
-        locations=[pubLoc],
+        locations=[book.publisherLoc],
         name='Publisher',
         showscale=False,
-        text=['This edition published in '+pubLoc+' by '+pubName+' in '+pubDate],
+        text=[book.publisherLoc],
         zauto=False,
         zmax=1,
         zmin=0,
     )
 
+    # combines graphs into one data set
     data = Data([author, publisher])
 
-    box1 = dict(x=1,
-                y=1,
+    # creates a text box to add to layout
+    box1 = dict(x=0.5,
+                y=0.85,
                 yanchor="bottom",
-                borderpad=2,
+                borderpad=10,
                 bordercolor='rgb(0, 0, 0)',
-                borderwidth=1,
-                text='Book: {}<br>Author: {}<br>Publisher: {}'.format(bookTitle, authName, pubName),
+                borderwidth=0,
+                # print the book information as a string
+                text=book.__str__(),
                 font=dict(
                     size=14),
                 align="left",
@@ -62,11 +67,8 @@ def plotGraph(bookTitle, authName, authLoc, pubName, pubLoc, pubDate, isbn):
             lonaxis=dict(
                 gridwidth=1.5999999999999999,
                 range=[-180, 180],
-                showgrid=False
-            ),
-            projection=dict(
-                type='mollweide'
-            ),
+                showgrid=False),
+            projection=dict(type='equirectangular'),
             scope='world',
             showland=True,
             showrivers=False,
@@ -76,8 +78,7 @@ def plotGraph(bookTitle, authName, authLoc, pubName, pubLoc, pubDate, isbn):
         ),
         hovermode='closest',
         showlegend=True,
-        title='<b>Locations of {}</b>'.format(bookTitle),
-
+        title='<b>Locations of {}</b>'.format(book.title),
         margin=dict(l=5, r=5, b=10, t=70, pad=2)
     )
 
@@ -87,4 +88,19 @@ def plotGraph(bookTitle, authName, authLoc, pubName, pubLoc, pubDate, isbn):
 
 
 # example for demo
-plotGraph('War and Peace', 'Leo Tolstoy', 'Russia', 'Signet', 'USA', '2012', '978-0451532114')
+if __name__ == '__main__':
+    # WarAndPeace = Book('9780143039990')
+    # WarAndPeace.getInfo()
+    # plotGraph(WarAndPeace)
+    #
+    # HarryPotter = Book('9780747560777')
+    # HarryPotter.getInfo()
+    # plotGraph(HarryPotter)
+
+    # KiteRunner = Book('9781594631931')
+    # KiteRunner.getInfo()
+    # plotGraph(KiteRunner)
+
+    Tempest = Book('9781461035930')
+    Tempest.getInfo()
+    plotGraph(Tempest)
