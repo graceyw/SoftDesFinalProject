@@ -7,6 +7,8 @@ class Book:
         self.isbn = isbn
         self.gotInfo = False
         self.hasInfo = False
+        self.authorLoc = 'UK'
+        self.publisherLoc = 'USA'
 
     def getInfo(self):
         self.gotInfo = True
@@ -14,12 +16,15 @@ class Book:
         if self.info is None:
             self.hasInfo = False
         else:
-            self.hasInfo = True
-            self.title = self.info['Title']
-            self.author = self.info['Authors']
-            self.publisher = self.info['Publisher']
-            self.year = self.info['Year']
-            self.language = self.info['Language']
+            try:
+                self.hasInfo = True
+                self.title = self.info['Title']
+                self.author = self.info['Authors']
+                self.publisher = self.info['Publisher']
+                self.year = self.info['Year']
+                self.language = self.info['Language']
+            except:
+                pass
 
     def __str__(self):
         if not self.gotInfo:
@@ -28,20 +33,20 @@ class Book:
             return 'No info available'
 
         infoString = ''
-        infoString += ('Title:\t\t' + self.title + '\n')
+        infoString += ('Title:\t\t  ' + self.title + '\n')
 
-        plural = 'Author:\t\t'
+        plural = 'Author:\t  '
         authors = ''
         for element in self.author:
             if len(authors) > 1:
-                plural = 'Authors:\t'
+                plural = 'Authors:\t  '
                 authors += ', ' + element
             else:
                 authors += element
 
         infoString += (plural + authors + '\n')
-        infoString += ('Publisher:\t' + self.publisher + '\n')
-        infoString += ('Year:\t\t' + self.year + '\n')
-        infoString += ('Language:\t' + self.language + '\n')
+        infoString += ('Publisher:\t  ' + self.publisher + '\n')
+        infoString += ('Year:\t  ' + self.year + '\n')
+        infoString += ('Language: ' + self.language + '\n')
 
         return infoString
