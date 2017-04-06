@@ -16,15 +16,12 @@ class Book:
         if self.info is None:
             self.hasInfo = False
         else:
-            try:
-                self.hasInfo = True
-                self.title = self.info['Title']
-                self.author = self.info['Authors']
-                self.publisher = self.info['Publisher']
-                self.year = self.info['Year']
-                self.language = self.info['Language']
-            except:
-                pass
+            self.hasInfo = True
+            self.title = self.info['Title']
+            self.author = self.info['Authors']
+            self.publisher = self.info['Publisher']
+            self.year = self.info['Year']
+            self.language = self.info['Language']
 
     def __str__(self):
         if not self.gotInfo:

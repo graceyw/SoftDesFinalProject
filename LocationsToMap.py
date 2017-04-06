@@ -22,6 +22,7 @@ def plotGraph(book):
         zmax=1,
         zmin=0,
     )
+
     # making a choropleth for the publisher's location.
     publisher = Choropleth(
         z=['1'],
@@ -32,7 +33,7 @@ def plotGraph(book):
         locations=[book.publisherLoc],
         name='Publisher',
         showscale=False,
-        text=['This edition published in '+book.publisherLoc+' by '+book.publisher+' in '+book.year],
+        text=[book.publisherLoc],
         zauto=False,
         zmax=1,
         zmin=0,
@@ -48,7 +49,7 @@ def plotGraph(book):
                 borderpad=10,
                 bordercolor='rgb(0, 0, 0)',
                 borderwidth=0,
-                # information goes in the next line
+                # print the book information as a string
                 text=book.__str__(),
                 font=dict(
                     size=14),
@@ -91,11 +92,15 @@ if __name__ == '__main__':
     # WarAndPeace = Book('9780143039990')
     # WarAndPeace.getInfo()
     # plotGraph(WarAndPeace)
-
+    #
     # HarryPotter = Book('9780747560777')
     # HarryPotter.getInfo()
     # plotGraph(HarryPotter)
 
-    KiteRunner = Book('9788525054203')
-    KiteRunner.getInfo()
-    plotGraph(KiteRunner)
+    # KiteRunner = Book('9781594631931')
+    # KiteRunner.getInfo()
+    # plotGraph(KiteRunner)
+
+    Tempest = Book('9781461035930')
+    Tempest.getInfo()
+    plotGraph(Tempest)
