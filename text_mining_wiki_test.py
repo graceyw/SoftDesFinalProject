@@ -10,10 +10,10 @@ from bs4 import BeautifulSoup
 #When this becomes a function change this to an user input
 #Works for: Great Gatsby, Name of the Wind, War and Peace
 #Does not work for: Harry Potter, Artimis Fowl
-pg_resaults = wikipedia.page("Great Gatsby")
+pg_results = wikipedia.page("Great Gatsby")
 
 #This generates the page's html. This can be optimized by not doing the whole doc.
-pg_html = pg_resaults.html()
+pg_html = pg_results.html()
 
 #This makes it readable (not nessassary after testing)
 soup = BeautifulSoup(pg_html, 'html.parser')
