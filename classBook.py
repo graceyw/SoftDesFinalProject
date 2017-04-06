@@ -7,12 +7,21 @@ class Book:
         self.isbn = isbn
         self.gotInfo = False
         self.hasInfo = False
-        self.authorLoc = 'UK'
-        self.publisherLoc = 'USA'
+        self.has = {'title': 0,
+                    'author': 0,
+                    'publisher': 0,
+                    'year': 0,
+                    'language': 0,
+                    'authorLoc': 0,
+                    'publisherLoc': 0,
+                    'plotLoc': 0}
+        self.authorLoc = 'UK'  # waiting to be replaced by call to textMiner
+        self.publisherLoc = 'USA'  # waiting to be replaced by call to textMiner
 
     def getInfo(self):
         self.gotInfo = True
         self.info = isbnlib.meta(self.isbn)
+
         if self.info is None:
             self.hasInfo = False
         else:
@@ -22,6 +31,7 @@ class Book:
             self.publisher = self.info['Publisher']
             self.year = self.info['Year']
             self.language = self.info['Language']
+        self.updateMissing(self)
 
     def __str__(self):
         if not self.gotInfo:
@@ -47,3 +57,28 @@ class Book:
         infoString += ('Language: ' + self.language + '\n')
 
         return infoString
+
+    def updateMissing(self):
+        if self.title is not None:
+            self.has['title'] = 1
+
+        if self.author is not None:
+            self.has['author'] = 1
+
+        if self.publisher is not None:
+            self.has['publisher'] = 1
+
+        if self.year is not None:
+            self.has['year'] = 1
+
+        if self.language is not None:
+            self.has['language'] = 1
+
+        if self.authorLoc is not None:
+            self.has['authorLoc'] = 1
+
+        if self.publisherLoc is not None:
+            self.has['publisherLoc'] = 1
+
+        if self.plotLoc is not None:
+            self.has['plotLoc'] = 1
