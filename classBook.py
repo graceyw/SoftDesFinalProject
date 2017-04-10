@@ -15,8 +15,9 @@ class Book:
                     'authorLoc': 0,
                     'publisherLoc': 0,
                     'plotLoc': 0}
-        self.authorLoc = 'UK'  # waiting to be replaced by call to textMiner
-        self.publisherLoc = 'USA'  # waiting to be replaced by call to textMiner
+        self.authorLoc = 'Olin College'  # waiting to be replaced by call to textMiner
+        self.publisherLoc = 'Neverland'  # waiting to be replaced by call to textMiner
+        self.plotLoc = 'The Depths of Hell'
 
     def getInfo(self):
         self.gotInfo = True
@@ -31,7 +32,7 @@ class Book:
             self.publisher = self.info['Publisher']
             self.year = self.info['Year']
             self.language = self.info['Language']
-        self.updateMissing(self)
+        self.updateMissing()
 
     def __str__(self):
         if not self.gotInfo:
@@ -41,7 +42,6 @@ class Book:
 
         infoString = ''
         infoString += ('Title:\t\t  ' + self.title + '\n')
-
         plural = 'Author:\t  '
         authors = ''
         for element in self.author:
