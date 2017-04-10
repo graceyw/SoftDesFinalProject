@@ -21,19 +21,20 @@ def find_country(book_page_name):
                                                            # TODO This could prob be optimized by begining approx 800 char in.
     all_th = soup.table.find_all('th')
     author_header = next(element for element in all_th if element.getText() == 'Author')
-    author_name = h.findNext('td').getText().strip()      # author name
+    author_name = author_header.findNext('td').getText().strip()      # author name
     country_header = next(element for element in all_th if element.getText() == 'Country')
-    country_name = header.findNext('td').getText().strip()      # country name
+    country_name = country_header.findNext('td').getText().strip()      # country name
     return author_name, country_name
 
 if __name__ == '__main__':
-    try:
-        print(find_country('Artemis Fowl'))
-    except DisambiguationError:
-        print('hello')
-        # print(DisambiguationError(getattr(self,'title',page['title']), may_refer_to))
+        print(find_country('THe da vinci code'))
 
 # dir(table[0].find_all('th')[2])       # print some things you can do i.e. findNext
+
+# '''To deal with the errors:
+#     try:
+#         print(find_country('War and Peace'))
+#     except ValueError:'''
 
 # This step uses the search to find the book. This is used to confirm that a book
 # does exist when the page function doesn't return something that makes sense
