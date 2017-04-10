@@ -2,7 +2,7 @@ import wikipedia
 from bs4 import BeautifulSoup
 import sys
 
-def find_country(book_page_name):
+def find_author_origin(book_page_name):
     '''Input: the name of a book's wikipedia page in the form of a string.
     Returns: the author and the country where the book takes place.
 
@@ -20,14 +20,12 @@ def find_country(book_page_name):
     table = soup.findAll("table", { "class" : "infobox" }) # select all parts that are prefixed by <th> (includes the country of the book)
                                                            # TODO This could prob be optimized by begining approx 800 char in.
     all_th = soup.table.find_all('th')
-    author_header = next(element for element in all_th if element.getText() == 'Author')
-    author_name = author_header.findNext('td').getText().strip()      # author name
     country_header = next(element for element in all_th if element.getText() == 'Country')
-    country_name = country_header.findNext('td').getText().strip()      # country name
-    return author_name, country_name
+    country_name = country_header.findNext('td').getText().strip()
+    return country_name
 
 if __name__ == '__main__':
-        print(find_country('THe da vinci code'))
+        print(find_author_origin('War and Peace'))
 
 # dir(table[0].find_all('th')[2])       # print some things you can do i.e. findNext
 
