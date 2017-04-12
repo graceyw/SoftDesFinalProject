@@ -1,3 +1,6 @@
+# Sarah Barden
+# Takes in a book's publisher and returns the location of the publisher's headquarters
+
 import wikipedia
 from bs4 import BeautifulSoup
 

@@ -1,3 +1,5 @@
+# Sam Eppinger, Gracey Wilson
+
 import wikipedia
 from bs4 import BeautifulSoup
 import sys
