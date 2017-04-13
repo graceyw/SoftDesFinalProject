@@ -1,8 +1,18 @@
-# Sam Eppinger, Gracey Wilson
-
 import wikipedia
+# from text_mining_wiki_test import find_author_origin
 from bs4 import BeautifulSoup
-import sys
+
+
+def getAuthorLocation(book):
+    if book.has['title']:
+        hasLoc = False
+        while not hasLoc:
+            loc = find_author_origin(book.title)
+            if loc = "DisambiguationError":
+                loc = find_author_origin(book.title + ' (novel)')
+                hasLoc = true
+
+
 
 def find_author_origin(book_page_name):
     '''Input: the name of a book's wikipedia page in the form of a string.
@@ -17,6 +27,8 @@ def find_author_origin(book_page_name):
     # Does not work for: Harry Potter, Artemis Fowl
 
     page_results = wikipedia.page(book_page_name)
+    except wikipedia.exceptions.DisambiguationError:
+        return('DisambiguationError')
     page_html = page_results.html()    # generate the page's html. TODO Could be optimized by only generating the first x char
     soup = BeautifulSoup(page_html, 'html.parser')    # make it readable (not nessassary after testing)
     table = soup.findAll("table", { "class" : "infobox" }) # select all parts that are prefixed by <th> (includes the country of the book)
@@ -25,19 +37,3 @@ def find_author_origin(book_page_name):
     country_header = next(element for element in all_th if element.getText() == 'Country')
     country_name = country_header.findNext('td').getText().strip()
     return country_name
-
-if __name__ == '__main__':
-        print(find_author_origin(input("Please enter a book title")))
-
-# dir(table[0].find_all('th')[2])       # print some things you can do i.e. findNext
-
-# '''To deal with the errors:
-#     try:
-#         print(find_country('War and Peace'))
-#     except ValueError:'''
-
-# This step uses the search to find the book. This is used to confirm that a book
-# does exist when the page function doesn't return something that makes sense
-# Use if something doesn't work.
-# wiki_results = wikipedia.search("War and Peace")
-# pg_results = wikipedia.page(title=wiki_results[0])

@@ -1,8 +1,10 @@
+# Sarah Barden
 # Takes book information as inputs and creates a local map of the locations
 
 import plotly
 from plotly.graph_objs import Choropleth, Data, Layout, Figure
 from classBook import Book
+from plotly import widgets
 
 
 def plotGraph(book):
@@ -43,16 +45,15 @@ def plotGraph(book):
     data = Data([author, publisher])
 
     # creates a text box to add to layout
-    box1 = dict(x=0.5,
-                y=0.85,
+    box1 = dict(x=0.50,
+                y=0.95,
                 yanchor="bottom",
                 borderpad=10,
                 bordercolor='rgb(0, 0, 0)',
                 borderwidth=0,
                 # print the book information as a string
                 text=book.__str__(),
-                font=dict(
-                    size=14),
+                font=dict(size=14),
                 align="left",
                 showarrow=False)
 
@@ -78,7 +79,7 @@ def plotGraph(book):
         ),
         hovermode='closest',
         showlegend=True,
-        title='<b>Locations of {}</b>'.format(book.title),
+        title=None,
         margin=dict(l=5, r=5, b=10, t=70, pad=2)
     )
 
@@ -86,21 +87,42 @@ def plotGraph(book):
     # plots the graph
     plotly.offline.plot(fig, filename='map2.html')
 
+    # interactive widget
+    # g2 = widgets.GraphWidget('https://plot.ly/~kevintest/1178/')
+    #
+    # button = widgets.Button(description="Submit")
+    #
+    # text_input = widgets.Text(
+    #     description='Borough:',
+    #     value='MANHATTAN',
+    # )
+    #
+    # message = widgets.HTML(value="",)
+    #
+    # valid = widgets.Valid(value=True,)
+    #
+    # # this will be initalize our listener
+    # button.on_click()
+    #
+    # container = widgets.HBox(children=[text_input, button, valid, message])
+    # plotly.offline.plot(container)
+    # plotly.offline.plot(g2)
+
 
 # example for demo
 if __name__ == '__main__':
     # WarAndPeace = Book('9780143039990')
     # WarAndPeace.getInfo()
     # plotGraph(WarAndPeace)
-    #
-    # HarryPotter = Book('9780747560777')
-    # HarryPotter.getInfo()
-    # plotGraph(HarryPotter)
+
+    HarryPotter = Book('9780747560777')
+    HarryPotter.getInfo()
+    plotGraph(HarryPotter)
 
     # KiteRunner = Book('9781594631931')
     # KiteRunner.getInfo()
     # plotGraph(KiteRunner)
 
-    Tempest = Book('9781461035930')
-    Tempest.getInfo()
-    plotGraph(Tempest)
+    # Tempest = Book('9781461035930')
+    # Tempest.getInfo()
+    # plotGraph(Tempest)
