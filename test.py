@@ -22,4 +22,5 @@ if __name__ == '__main__':
             break
         thisBook = Book(isbn)
         thisBook.getInfo()
+        thisBook.getLocations()
         print(thisBook)

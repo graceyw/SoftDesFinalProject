@@ -1,17 +1,21 @@
 import wikipedia
 # from text_mining_wiki_test import find_author_origin
 from bs4 import BeautifulSoup
+import indicoio
+from key import indico_key
+indicoio.config.api_key = indico_key
 
 
 def getAuthorLocation(book):
     if book.has['title']:
-        hasLoc = False
-        while not hasLoc:
-            loc = find_author_origin(book.title)
-            if loc = "DisambiguationError":
-                loc = find_author_origin(book.title + ' (novel)')
-                hasLoc = true
-
+        loc = find_author_origin(book.title)
+        if loc is 'DisambiguationError':
+            loc = find_author_origin(book.title + ' (novel)')
+        if loc is 'StopIteration':
+            return 'Author location not found on Wikipedia'
+        if loc is 'PageError':
+            return 'Book not found on Wikipedia'
+        return loc
 
 
 def find_author_origin(book_page_name):
@@ -25,13 +29,17 @@ def find_author_origin(book_page_name):
     the book (i.e. "Emma (novel)").'''
     # Works for books with Gatsby, Name of the Wind, War and Peace
     # Does not work for: Harry Potter, Artemis Fowl
-
-    page_results = wikipedia.page(book_page_name)
+    try:
+        page_results = wikipedia.page(book_page_name)
     except wikipedia.exceptions.DisambiguationError:
-        return('DisambiguationError')
+        return 'DisambiguationError'
+    except StopIteration:
+        return 'StopIteration'
+    except wikipedia.exceptions.PageError:
+        return 'PageError'
     page_html = page_results.html()    # generate the page's html. TODO Could be optimized by only generating the first x char
-    soup = BeautifulSoup(page_html, 'html.parser')    # make it readable (not nessassary after testing)
-    table = soup.findAll("table", { "class" : "infobox" }) # select all parts that are prefixed by <th> (includes the country of the book)
+    soup = BeautifulSoup(page_html, "lxml")    # make it readable (not nessassary after testing)
+    table = soup.findAll("table", {"class": "infobox"})  # select all parts that are prefixed by <th> (includes the country of the book)
                                                            # TODO This could prob be optimized by begining approx 800 char in.
     all_th = soup.table.find_all('th')
     country_header = next(element for element in all_th if element.getText() == 'Country')

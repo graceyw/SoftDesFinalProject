@@ -1,6 +1,7 @@
 # Rowan Sharman
 
 import isbnlib
+import textMiner
 
 
 class Book:
@@ -17,7 +18,7 @@ class Book:
                     'authorLoc': 0,
                     'publisherLoc': 0,
                     'plotLoc': 0}
-        self.authorLoc = 'Olin College'  # waiting to be replaced by call to textMiner
+        # self.authorLoc = 'Olin College'  # waiting to be replaced by call to textMiner
         self.publisherLoc = 'Neverland'  # waiting to be replaced by call to textMiner
         self.plotLoc = 'The Depths of Hell'
 
@@ -34,6 +35,14 @@ class Book:
             self.publisher = self.info['Publisher']
             self.year = self.info['Year']
             self.language = self.info['Language']
+
+        self.authorLoc = ''
+        self.publisherLoc = ''
+        self.plotLoc = ''
+        self.updateMissing()
+
+    def getLocations(self):
+        self.authorLoc = textMiner.getAuthorLocation(self)
         self.updateMissing()
 
     def __str__(self):
@@ -57,6 +66,9 @@ class Book:
         infoString += ('Publisher:\t  ' + self.publisher + '\n')
         infoString += ('Year:\t  ' + self.year + '\n')
         infoString += ('Language: ' + self.language + '\n')
+        infoString += ('Author Location: ' + self.authorLoc + '\n')
+        infoString += ('Publisher Location: ' + self.publisherLoc + '\n')
+        infoString += ('Plot Location: ' + self.plotLoc + '\n')
 
         return infoString
 
