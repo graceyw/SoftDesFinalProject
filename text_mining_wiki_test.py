@@ -27,7 +27,7 @@ def find_author_origin(book_page_name):
     return country_name
 
 if __name__ == '__main__':
-        print(find_author_origin(input("Enter book title")))
+        print(find_author_origin(input("Please enter a book title")))
 
 # dir(table[0].find_all('th')[2])       # print some things you can do i.e. findNext
 

@@ -16,11 +16,14 @@ def find_plot_country(book_page_name):
     if places == []:
         page_plot = page_results.section("Plot")
         plot_places = indicoio.places(page_plot)
-        print(plot_places)
+        pp = plot_places[1]['text']
+        print(pp)
     else:
-        print(indicoio.places(page_summary))
+        plot_places_sum = indicoio.places(page_summary)
+        ps = plot_places_sum[1]['text']
+        print(ps)
 
 
 if __name__ == '__main__':
-        print(find_country('The Book Thief'))
+        find_plot_country('The Book Thief')
 #Good to test The Da Vinci Code, and War and Peace, and the Book Thief. These are types of cases
