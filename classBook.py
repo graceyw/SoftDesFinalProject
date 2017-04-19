@@ -43,9 +43,10 @@ class Book:
 
     def getLocations(self):
         self.authorLoc = textMiner.getAuthorLocation(self)
-        self.publisherLoc = 'Neverland'  # waiting to be replaced by call to textMiner
-        self.plotLoc = 'The Depths of Hell'
+        self.publisherLoc = PublisherLocation.find_publisher_location(self.publisher)
+        self.plotLoc = PlotLocation.find_plot_country(self)
         self.updateMissing()
+
 
     def __str__(self):
         if not self.gotInfo:

@@ -1,10 +1,10 @@
 # Sarah Barden
-# Takes book information as inputs and creates a local map of the locations
+'''Takes an ISBN code and returns a plotly map highlighting the locations of
+the Author, Plot and Publisher.'''
 
 import plotly
 from plotly.graph_objs import Choropleth, Data, Layout, Figure
 from classBook import Book
-
 
 def plotGraph(book):
 

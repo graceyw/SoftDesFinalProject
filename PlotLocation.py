@@ -1,5 +1,8 @@
 # Sam Eppinger
 
+'''Requires indicoio library to run. Install by running the code:
+sudo pip3 install indicoio
+'''
 import wikipedia
 from bs4 import BeautifulSoup
 import sys
