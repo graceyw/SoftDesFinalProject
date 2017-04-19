@@ -18,9 +18,6 @@ class Book:
                     'authorLoc': 0,
                     'publisherLoc': 0,
                     'plotLoc': 0}
-        # self.authorLoc = 'Olin College'  # waiting to be replaced by call to textMiner
-        # self.publisherLoc = 'Neverland'  # waiting to be replaced by call to textMiner
-        # self.plotLoc = 'The Depths of Hell'
 
     def getInfo(self):
         self.gotInfo = True

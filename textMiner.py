@@ -45,6 +45,7 @@ def getPlotLocation(book):
     return 'Book object has no title'
 
 
+
 def find_author_origin(book_page_name):
     '''Input: the name of a book's wikipedia page in the form of a string.
     Returns: the author and the country where the book takes place.
