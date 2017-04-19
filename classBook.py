@@ -43,8 +43,8 @@ class Book:
 
     def getLocations(self):
         self.authorLoc = textMiner.getAuthorLocation(self)
-        self.publisherLoc = 'Neverland'  # waiting to be replaced by call to textMiner
-        self.plotLoc = 'The Depths of Hell'
+        self.publisherLoc = textMiner.getPublisherLocation(self)
+        self.plotLoc = "depths of hell" # textMiner.getPlotLocation(self)
         self.updateMissing()
 
     def __str__(self):
