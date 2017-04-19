@@ -13,7 +13,7 @@ def find_author_origin(book_page_name):
     Common user errors will probably include: inputting just the title of a book
     when the title of its wikipedia page contains more than simply the title of
     the book (i.e. "Emma (novel)").'''
-    # Works for books with Gatsby, Name of the Wind, War and Peace
+    # Works for Great Gatsby, Name of the Wind, War and Peace
     # Does not work for: Harry Potter, Artemis Fowl
 
     page_results = wikipedia.page(book_page_name)
