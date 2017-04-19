@@ -1,3 +1,4 @@
+
 import wikipedia
 # from text_mining_wiki_test import find_author_origin
 from bs4 import BeautifulSoup
@@ -16,13 +17,38 @@ def getAuthorLocation(book):
         if loc is 'PageError':
             return 'Book not found on Wikipedia'
         return loc
+    return 'Book object has no title'
 
+
+def getPublisherLocation(book):
+    if book.has['publisher']:
+        loc = find_publisher_location(book.publisher)
+        # if loc is 'DisambiguationError':
+        #     loc = find_publisher_location(book.title + ' (novel)')
+        # if loc is 'StopIteration':
+        #     return 'Publisher location not found on Wikipedia'
+        # if loc is 'PageError':
+        #     return 'Book not found on Wikipedia'
+        return loc
+    return 'Book object has no publisher'
+
+
+def getPlotLocation(book):
+    if book.has['title']:
+        loc = find_plot_country(book.title)
+        if loc is 'DisambiguationError':
+            loc = find_plot_country(book.title + ' (novel)')
+        if loc is 'StopIteration':
+            return 'Author location not found on Wikipedia'
+        if loc is 'PageError':
+            return 'Book not found on Wikipedia'
+        return loc
+    return 'Book object has no title'
 
 
 def find_author_origin(book_page_name):
     '''Input: the name of a book's wikipedia page in the form of a string.
     Returns: the author and the country where the book takes place.
-
     Common program holes: books that are part of a series, books whose pages don't list
     the Country in the info box.
     Common user errors will probably include: inputting just the title of a book
@@ -46,3 +72,50 @@ def find_author_origin(book_page_name):
     country_header = next(element for element in all_th if element.getText() == 'Country')
     country_name = country_header.findNext('td').getText().strip()
     return country_name
+
+
+def find_publisher_location(book_publisher):
+    # Input: the name of a book's publisher
+    # Returns: the country where the book was published
+
+    # Works: 9780486295060 (Dover Publications)
+    #        9780375842207 (Alfred A. Knopf)
+    #         9780199583027 (Oxford University Press)
+    # Does not work for: Harry Potter, Artemis Fowl
+
+    page_results = wikipedia.page(book_publisher)
+    page_html = page_results.html()    # generate the page's html.
+    soup = BeautifulSoup(page_html, 'lxml')    # make it readable
+
+    all_tr = soup.find_all('tr')  # finds all of the table rows
+    trlist = [element.getText() for element in all_tr]  # makes a pretty list with just text
+
+    for i in trlist:
+        if i.startswith("Headquarters"):
+            location = i
+
+    return location[22:]  # starts after "Location headquarters" and just returns the location
+
+
+def find_plot_country(book_page_name):
+
+    try:
+        page_results = wikipedia.page(book_page_name)
+    except wikipedia.exceptions.DisambiguationError:
+        return 'DisambiguationError'
+    except StopIteration:
+        return 'StopIteration'
+    except wikipedia.exceptions.PageError:
+        return 'PageError'
+    page_summary = wikipedia.summary(page_results)
+    places = indicoio.places(page_summary)
+
+    if places == []:
+        page_plot = page_results.section("Plot")
+        plot_places = indicoio.places(page_plot)
+        pp = plot_places[1]['text']
+        print(pp)
+    else:
+        plot_places_sum = indicoio.places(page_summary)
+        ps = plot_places_sum[1]['text']
+        print(ps)
