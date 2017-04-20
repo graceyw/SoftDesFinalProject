@@ -6,6 +6,7 @@ import plotly
 from plotly.graph_objs import Choropleth, Data, Layout, Figure
 from classBook import Book
 
+
 def plotGraph(book):
 
     # makes a choropleth for the author's location
@@ -18,7 +19,7 @@ def plotGraph(book):
         locations=[book.authorLoc],
         name='Author',
         showscale=False,
-        text=[book.authorLoc],
+        text=["{} was born in {}".format(book.author, book.authorLoc)],
         zauto=False,
         zmax=1,
         zmin=0,
@@ -34,7 +35,7 @@ def plotGraph(book):
         locations=[book.publisherLoc],
         name='Publisher',
         showscale=False,
-        text=[book.publisherLoc],
+        text=["{} was published in {}".format(book.title, book.publisherLoc)],
         zauto=False,
         zmax=1,
         zmin=0,
@@ -50,7 +51,7 @@ def plotGraph(book):
         locations=[book.plotLoc],
         name='Plot',
         showscale=False,
-        text=[book.plotLoc],
+        text=["{} takes place in {}".format(book.title, book.plotLoc)],
         zauto=False,
         zmax=1,
         zmin=0,
@@ -86,6 +87,7 @@ def plotGraph(book):
                 showgrid=False),
             projection=dict(type='equirectangular'),
             scope='world',
+            showcountries=True,
             showland=True,
             showrivers=False,
             showsubunits=True,
@@ -109,7 +111,7 @@ if __name__ == '__main__':
     WarAndPeace.getInfo()
     WarAndPeace.authorLoc = "Russia"
     WarAndPeace.plotLoc = "USA"
-    WarAndPeace.publisherLoc = "UK"
+    WarAndPeace.publisherLoc = "USA"
 
     plotGraph(WarAndPeace)
 
