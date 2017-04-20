@@ -40,10 +40,9 @@ class Book:
 
     def getLocations(self):
         self.authorLoc = textMiner.getAuthorLocation(self)
-        self.publisherLoc = textMiner.find_publisher_location(self)
-        self.plotLoc = textMiner.find_plot_country(self)
+        self.publisherLoc = textMiner.getPublisherLocation(self)
+        self.plotLoc = textMiner.getPlotLocation(self)
         self.updateMissing()
-
 
     def __str__(self):
         if not self.gotInfo:

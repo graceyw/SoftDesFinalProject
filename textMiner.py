@@ -23,12 +23,8 @@ def getAuthorLocation(book):
 def getPublisherLocation(book):
     if book.has['publisher']:
         loc = find_publisher_location(book.publisher)
-        # if loc is 'DisambiguationError':
-        #     loc = find_publisher_location(book.title + ' (novel)')
-        # if loc is 'StopIteration':
-        #     return 'Publisher location not found on Wikipedia'
-        # if loc is 'PageError':
-        #     return 'Book not found on Wikipedia'
+        if loc is 'PageError':
+            return 'Publisher not found on Wikipedia'
         return loc
     return 'Book object has no publisher'
 
@@ -60,8 +56,6 @@ def find_author_origin(book_page_name):
         page_results = wikipedia.page(book_page_name)
     except wikipedia.exceptions.DisambiguationError:
         return 'DisambiguationError'
-    except StopIteration:
-        return 'StopIteration'
     except wikipedia.exceptions.PageError:
         return 'PageError'
     page_html = page_results.html()    # generate the page's html. TODO Could be optimized by only generating the first x char
@@ -69,7 +63,10 @@ def find_author_origin(book_page_name):
     table = soup.findAll("table", {"class": "infobox"})  # select all parts that are prefixed by <th> (includes the country of the book)
                                                            # TODO This could prob be optimized by begining approx 800 char in.
     all_th = soup.table.find_all('th')
-    country_header = next(element for element in all_th if element.getText() == 'Country')
+    try:
+        country_header = next(element for element in all_th if element.getText() == 'Country')
+    except StopIteration:
+        return 'StopIteration'
     country_name = country_header.findNext('td').getText().strip()
     return country_name
 
@@ -82,18 +79,24 @@ def find_publisher_location(book_publisher):
     #        9780375842207 (Alfred A. Knopf)
     #         9780199583027 (Oxford University Press)
     # Does not work for: Harry Potter, Artemis Fowl
+    try:
+        page_results = wikipedia.page(book_publisher)
+    except wikipedia.exceptions.PageError:
+        return 'PageError'
 
-    page_results = wikipedia.page(book_publisher)
     page_html = page_results.html()    # generate the page's html.
     soup = BeautifulSoup(page_html, 'lxml')    # make it readable
 
     all_tr = soup.find_all('tr')  # finds all of the table rows
     trlist = [element.getText() for element in all_tr]  # makes a pretty list with just text
 
+    found = False
     for i in trlist:
         if i.startswith("Headquarters"):
             location = i
-
+            found = True
+    if not found:
+        return "Publisher Location not found on Wikipedia"
     return location[22:]  # starts after "Location headquarters" and just returns the location
 
 
@@ -103,8 +106,6 @@ def find_plot_country(book_page_name):
         page_results = wikipedia.page(book_page_name)
     except wikipedia.exceptions.DisambiguationError:
         return 'DisambiguationError'
-    except StopIteration:
-        return 'StopIteration'
     except wikipedia.exceptions.PageError:
         return 'PageError'
     page_summary = wikipedia.summary(page_results)
@@ -113,9 +114,9 @@ def find_plot_country(book_page_name):
     if places == []:
         page_plot = page_results.section("Plot")
         plot_places = indicoio.places(page_plot)
-        pp = plot_places[1]['text']
-        print(pp)
+        pp = plot_places[0]['text']
+        return pp
     else:
         plot_places_sum = indicoio.places(page_summary)
-        ps = plot_places_sum[1]['text']
-        print(ps)
+        ps = plot_places_sum[0]['text']
+        return ps
