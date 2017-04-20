@@ -9,62 +9,29 @@ from classBook import Book
 
 def plotGraph(book):
 
-    # makes a choropleth for the author's location
-    author = Choropleth(
+    locations = Choropleth(
         z=['1'],
         autocolorscale=False,
-        colorscale=[[0, 'rgb(255,255,255)'], [1, 'rgb(68,94,150)']],
+        colorscale=[[1, 'rgb(255,255,100)']],
         hoverinfo='text',
         locationmode='country names',
-        locations=[book.authorLoc],
-        name='Author',
+        locations=[book.authorLoc, book.publisherLoc, book.plotLoc],
+        name='Locations',
         showscale=False,
-        text=["{} was born in {}".format(book.author, book.authorLoc)],
+        text=["{} was born in {}".format(book.author, book.authorLoc),
+              "{} was published in {}".format(book.title, book.publisherLoc),
+              "{} takes place in {}".format(book.title, book.plotLoc)],
         zauto=False,
         zmax=1,
         zmin=0,
     )
 
-    # making a choropleth for the publisher's location.
-    publisher = Choropleth(
-        z=['1'],
-        autocolorscale=False,
-        colorscale=[[0, 'rgb(255,255,255)'], [1, 'rgb(186,58,51)']],
-        hoverinfo='text',
-        locationmode='country names',
-        locations=[book.publisherLoc],
-        name='Publisher',
-        showscale=False,
-        text=["{} was published in {}".format(book.title, book.publisherLoc)],
-        zauto=False,
-        zmax=1,
-        zmin=0,
-    )
-
-    # making a choropleth for the plot's location.
-    plot = Choropleth(
-        z=['1'],
-        autocolorscale=False,
-        colorscale=[[0, 'rgb(255,255,255)'], [1, 'rgb(50,205,50)']],
-        hoverinfo='text',
-        locationmode='country names',
-        locations=[book.plotLoc],
-        name='Plot',
-        showscale=False,
-        text=["{} takes place in {}".format(book.title, book.plotLoc)],
-        zauto=False,
-        zmax=1,
-        zmin=0,
-    )
-
-    # combines graphs into one data set
-    data = Data([author, publisher, plot])
-
+    data = Data([locations])
     # creates a text box to add to layout
     box1 = dict(x=0.50,
-                y=0.95,
+                y=0.85,
                 yanchor="bottom",
-                borderpad=10,
+                borderpad=0,
                 bordercolor='rgb(0, 0, 0)',
                 borderwidth=0,
                 # print the book information as a string
@@ -77,10 +44,10 @@ def plotGraph(book):
         autosize=True,
         annotations=[box1],
         geo=dict(
-            countrycolor='rgb(102, 102, 102)',
+            countrycolor='rgb(0, 0, 0)',
             countrywidth=0.1,
             lakecolor='rgb(255, 255, 255)',
-            landcolor='rgba(237, 247, 138, 0.25)',
+            landcolor='rgb(255, 255, 200)',
             lonaxis=dict(
                 gridwidth=1.5999999999999999,
                 range=[-180, 180],
@@ -91,13 +58,13 @@ def plotGraph(book):
             showland=True,
             showrivers=False,
             showsubunits=True,
-            subunitcolor='rgb(102, 102, 102)',
+            subunitcolor='rgb(0, 0, 0)',
             subunitwidth=0.5
         ),
         hovermode='closest',
         showlegend=True,
         title=None,
-        margin=dict(l=5, r=5, b=10, t=70, pad=2)
+        margin=dict(l=20, r=20, b=10, t=10, pad=2)
     )
 
     fig = Figure(data=data, layout=layout)
@@ -110,8 +77,8 @@ if __name__ == '__main__':
     WarAndPeace = Book('9780143039990')
     WarAndPeace.getInfo()
     WarAndPeace.authorLoc = "Russia"
-    WarAndPeace.plotLoc = "USA"
-    WarAndPeace.publisherLoc = "USA"
+    WarAndPeace.plotLoc = "China"
+    WarAndPeace.publisherLoc = "UK"
 
     plotGraph(WarAndPeace)
 
