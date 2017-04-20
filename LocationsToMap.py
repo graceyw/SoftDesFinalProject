@@ -12,7 +12,7 @@ def plotGraph(book):
     locations = Choropleth(
         z=['1'],
         autocolorscale=False,
-        colorscale=[[1, 'rgb(255,255,100)']],
+        colorscale=[[1, 'rgb(255,255,255)']],
         hoverinfo='text',
         locationmode='country names',
         locations=[book.authorLoc, book.publisherLoc, book.plotLoc],
@@ -46,8 +46,8 @@ def plotGraph(book):
         geo=dict(
             countrycolor='rgb(0, 0, 0)',
             countrywidth=0.1,
-            lakecolor='rgb(255, 255, 255)',
-            landcolor='rgb(255, 255, 200)',
+            lakecolor='rgb(230, 230, 255)',  # blue
+            landcolor='rgb(255, 255, 240)',  # tan
             lonaxis=dict(
                 gridwidth=1.5999999999999999,
                 range=[-180, 180],
@@ -56,13 +56,14 @@ def plotGraph(book):
             scope='world',
             showcountries=True,
             showland=True,
+            showlakes=False,
             showrivers=False,
             showsubunits=True,
             subunitcolor='rgb(0, 0, 0)',
             subunitwidth=0.5
         ),
         hovermode='closest',
-        showlegend=True,
+        showlegend=False,
         title=None,
         margin=dict(l=20, r=20, b=10, t=10, pad=2)
     )
@@ -74,13 +75,13 @@ def plotGraph(book):
 
 # example for demo
 if __name__ == '__main__':
-    WarAndPeace = Book('9780143039990')
-    WarAndPeace.getInfo()
-    WarAndPeace.authorLoc = "Russia"
-    WarAndPeace.plotLoc = "China"
-    WarAndPeace.publisherLoc = "UK"
+    book = Book('9780143039990')
+    book.getInfo()
+    book.authorLoc = "Russia"
+    book.plotLoc = "China"
+    book.publisherLoc = "Canada"
 
-    plotGraph(WarAndPeace)
+    plotGraph(book)
 
     # HarryPotter = Book('9780747560777')
     # HarryPotter.getInfo()
