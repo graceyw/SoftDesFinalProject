@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+key.py
 
 # C extensions
 *.so
@@ -96,4 +97,3 @@ ENV/
 
 # mkdocs documentation
 /site
-
