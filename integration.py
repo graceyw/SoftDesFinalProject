@@ -47,9 +47,9 @@ if __name__ == '__main__':
 9780743273565 Great Gatsby   ERROR   gets a DisambiguationError for publisher
 9780679886181 Jane Eyre              UK, US, London
 9780316769488 Catcher in the Rye     US, NYC, Rye (lol)
-9780486280615 Huckberry Finn         book not found on Wikipedia
+9780486280615 Huckleberry Finn       book not found on Wikipedia
 9780451524935 1984                   UK, Mississippi, Great Britain
 9780143107668 Scarlet Letter         not found, London, Mass Bay Colony
-9780143035008 Anna Kerenina          Russia, not found (Penguin?), Serbia (wrong)
+9780143035008 Anna Kerenina          Russia, not found (Penguin), Serbia (wrong)
 
 """
