@@ -10,9 +10,8 @@ from classBook import Book
 def plotGraph(book):
 
     locations = Choropleth(
-        z=['1'],
+        z=['0', '1', '2'],
         autocolorscale=False,
-        colorscale=[[1, 'rgb(255,255,255)']],
         hoverinfo='text',
         locationmode='country names',
         locations=[book.authorLoc, book.publisherLoc, book.plotLoc],
@@ -22,7 +21,7 @@ def plotGraph(book):
               "{} was published in {}".format(book.title, book.publisherLoc),
               "{} takes place in {}".format(book.title, book.plotLoc)],
         zauto=False,
-        zmax=1,
+        zmax=2,
         zmin=0,
     )
 
@@ -75,6 +74,7 @@ def plotGraph(book):
 
 # example for demo
 if __name__ == '__main__':
+
     # book = Book('9780143039990')
     # book.getInfo()
     # plotGraph(book)
@@ -87,7 +87,7 @@ if __name__ == '__main__':
     KiteRunner.getInfo()
 
     KiteRunner.authorLoc = "Afghanistan"
-    KiteRunner.plotLoc = "Pakistan"
+    KiteRunner.plotLoc = "Pakistan, Fremont, CA"
     KiteRunner.publisherLoc = "United States"
     plotGraph(KiteRunner)
 

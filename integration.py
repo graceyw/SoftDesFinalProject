@@ -5,21 +5,14 @@ Given a book's ISBN code, this file produces a map that highlights the
 author's country of origin, location of the book's publisher, and location
 of the book's plot.
 
-To work, must install isbnlib library by running the code:
-sudo pip3 install isbnlib
+To work, must install isbnlib library by running: sudo pip3 install isbnlib
 '''
 import isbnlib
 from LocationsToMap import plotGraph
-from classBook import Book     # is this necessary, since it's already imported in LocationsToMap?
+from classBook import Book
 
-'''FILES INVOLVED:
-Code below taken from test.py, which can now be discarded.
-The same functionality exists in ScannerToData.py, which can also be discarded.
 
-Uses textMiner.py to get locations of the Plot, Author, and Publisher.
-Uses LocationsToMap to plot those locations on a map.
-'''
-def getISBN():
+def getIsbn():
     code = input('Scan book barcode or enter ISBN code: ')
     if code == 'x':              # Exit program when 'x' entered
         return False
@@ -30,14 +23,33 @@ def getISBN():
     return code
 
 
-if __name__ == '__main__':
+def getEverything():
     while True:
-        ISBN = getISBN()
-        if not ISBN:     # Exit program when 'x' entered
+        isbn = getIsbn()
+        if not isbn:  # Exit program when 'x' entered
             break
-        thisBook = Book(ISBN)
+        thisBook = Book(isbn)
         thisBook.getInfo()
         thisBook.getLocations()
-        # want to run the location searches with the title of the book as input
         print(thisBook)
-        plotGraph(thisBook)
+        return thisBook
+
+
+if __name__ == '__main__':
+    mybook = getEverything()
+    print(mybook)
+    plotGraph(mybook)
+
+"""                               ** author, publisher, plot **
+9780143039990 War and Peace          Russia, London, Russia
+9781461035930 The Tempest            not found, Naples, not found
+9781594631931 Kite Runner    ERROR   gets an Indicoio error
+9780743273565 Great Gatsby   ERROR   gets a DisambiguationError for publisher
+9780679886181 Jane Eyre              UK, US, London
+9780316769488 Catcher in the Rye     US, NYC, Rye (lol)
+9780486280615 Huckleberry Finn       book not found on Wikipedia
+9780451524935 1984                   UK, Mississippi, Great Britain
+9780143107668 Scarlet Letter         not found, London, Mass Bay Colony
+9780143035008 Anna Kerenina          Russia, not found (Penguin), Serbia (wrong)
+
+"""

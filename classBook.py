@@ -65,9 +65,9 @@ class Book:
         infoString += ('Publisher:\t  ' + self.publisher + '\n')
         infoString += ('Year:\t  ' + self.year + '\n')
         infoString += ('Language: ' + self.language + '\n')
-        infoString += ('Author Location: ' + self.authorLoc + '\n')
-        infoString += ('Publisher Location: ' + self.publisherLoc + '\n')
-        infoString += ('Plot Location: ' + self.plotLoc + '\n')
+        infoString += ('Author Location:\t ' + self.authorLoc + '\n')
+        infoString += ('Publisher Location:\t ' + self.publisherLoc + '\n')
+        infoString += ('Plot Location:\t\t ' + self.plotLoc + '\n')
 
         return infoString
 
