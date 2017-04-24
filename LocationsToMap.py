@@ -74,7 +74,7 @@ def plotGraph(book):
 
 # example for demo
 if __name__ == '__main__':
-    pass
+
     # book = Book('9780143039990')
     # book.getInfo()
     # plotGraph(book)
@@ -87,7 +87,7 @@ if __name__ == '__main__':
     KiteRunner.getInfo()
 
     KiteRunner.authorLoc = "Afghanistan"
-    KiteRunner.plotLoc = "Pakistan"
+    KiteRunner.plotLoc = "Pakistan, Fremont, CA"
     KiteRunner.publisherLoc = "United States"
     plotGraph(KiteRunner)
 
