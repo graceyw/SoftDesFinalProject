@@ -13,10 +13,13 @@ indicoio.config.api_key = indico_key
 def find_plot_country(book_page_name):
 
     page_results = wikipedia.page(book_page_name)
-    page_summary = wikipedia.summary(page_results)
+    page_summary = page_results.summary
     places = indicoio.places(page_summary)
+    # print('page_results', page_results)
+    # print('page_summary', page_summary)
 
     if places == []:
+        print(page_results.section("Plot"))
         page_plot = page_results.section("Plot")
         plot_places = indicoio.places(page_plot)
         pp = plot_places[1]['text']
@@ -28,5 +31,5 @@ def find_plot_country(book_page_name):
 
 
 if __name__ == '__main__':
-        find_plot_country('The Book Thief')
+        find_plot_country('Adventures of Huckleberry Finn')
 #Good to test The Da Vinci Code, and War and Peace, and the Book Thief. These are types of cases
