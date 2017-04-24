@@ -106,15 +106,13 @@ def find_publisher_location(book_publisher):
 
 
 def find_plot_country(book_page_name):
-
     try:
         page_results = wikipedia.page(book_page_name)
     except wikipedia.exceptions.DisambiguationError:
         return 'DisambiguationError'
     except wikipedia.exceptions.PageError:
         return 'PageError'
-    print(page_results.summary)
-    page_summary = wikipedia.summary(page_results)
+    page_summary = page_results.summary
     places = indicoio.places(page_summary)
 
     if places == []:
