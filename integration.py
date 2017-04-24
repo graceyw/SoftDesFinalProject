@@ -37,6 +37,7 @@ def getEverything():
 
 if __name__ == '__main__':
     mybook = getEverything()
+    print(mybook)
     plotGraph(mybook)
 
 """                               ** author, publisher, plot **
