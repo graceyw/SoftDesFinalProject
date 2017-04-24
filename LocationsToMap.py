@@ -75,21 +75,21 @@ def plotGraph(book):
 
 # example for demo
 if __name__ == '__main__':
-    book = Book('9780143039990')
-    book.getInfo()
-    book.authorLoc = "Russia"
-    book.plotLoc = "China"
-    book.publisherLoc = "Canada"
-
-    plotGraph(book)
+    # book = Book('9780143039990')
+    # book.getInfo()
+    # plotGraph(book)
 
     # HarryPotter = Book('9780747560777')
     # HarryPotter.getInfo()
     # plotGraph(HarryPotter)
 
-    # KiteRunner = Book('9781594631931')
-    # KiteRunner.getInfo()
-    # plotGraph(KiteRunner)
+    KiteRunner = Book('9781594631931')
+    KiteRunner.getInfo()
+
+    KiteRunner.authorLoc = "Afghanistan"
+    KiteRunner.plotLoc = "Pakistan"
+    KiteRunner.publisherLoc = "United States"
+    plotGraph(KiteRunner)
 
     # Tempest = Book('9781461035930')
     # Tempest.getInfo()
