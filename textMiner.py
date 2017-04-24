@@ -25,6 +25,8 @@ def getPublisherLocation(book):
         loc = find_publisher_location(book.publisher)
         if loc is 'PageError':
             return 'Publisher not found on Wikipedia'
+        if loc is 'DisambiguationError':
+            return 'Publisher name not specific enough'
         return loc
     return 'Book object has no publisher'
 
@@ -84,6 +86,8 @@ def find_publisher_location(book_publisher):
         page_results = wikipedia.page(book_publisher)
     except wikipedia.exceptions.PageError:
         return 'PageError'
+    except wikipedia.exceptions.DisambiguationError:
+        return 'DisambiguationError'
 
     page_html = page_results.html()    # generate the page's html.
     soup = BeautifulSoup(page_html, 'lxml')    # make it readable
@@ -109,6 +113,7 @@ def find_plot_country(book_page_name):
         return 'DisambiguationError'
     except wikipedia.exceptions.PageError:
         return 'PageError'
+    print(page_results.summary)
     page_summary = wikipedia.summary(page_results)
     places = indicoio.places(page_summary)
 
