@@ -33,6 +33,7 @@ def getPlotLocation(book):
     if book.has['title']:
         loc = find_plot_country(book.title)
         if loc is 'DisambiguationError':
+            print("Disambuguation")
             loc = find_plot_country(book.title + ' (novel)')
         if loc is 'StopIteration':
             return 'Author location not found on Wikipedia'
@@ -116,7 +117,6 @@ def find_plot_country(book_page_name):
         plot_places = indicoio.places(page_plot)
         pp = plot_places[0]['text']
         return pp
-    else:
-        plot_places_sum = indicoio.places(page_summary)
-        ps = plot_places_sum[0]['text']
-        return ps
+
+    ps = places[0]['text']
+    return ps
