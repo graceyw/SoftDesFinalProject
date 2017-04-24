@@ -33,7 +33,7 @@ def getISBN():
 if __name__ == '__main__':
     while True:
         ISBN = getISBN()
-        if not ISBN:     # Exit program w978-3-16-148410-0hen 'x' entered
+        if not ISBN:     # Exit program when 'x' entered
             break
         thisBook = Book(ISBN)
         thisBook.getInfo()
