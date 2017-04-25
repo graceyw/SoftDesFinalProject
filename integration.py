@@ -23,7 +23,7 @@ def getIsbn():
     return code
 
 
-def getEverything():
+def doEverything():
     while True:
         isbn = getIsbn()
         if not isbn:  # Exit program when 'x' entered
@@ -32,19 +32,19 @@ def getEverything():
         thisBook.getInfo()
         thisBook.getLocations()
         print(thisBook)
+        plotGraph(thisBook)
         return thisBook
 
 
 if __name__ == '__main__':
-    mybook = getEverything()
-    print(mybook)
-    plotGraph(mybook)
+    doEverything()
 
-"""                               ** author, publisher, plot **
+"""
+THESE CURRENTLY "WORK"            ** author, publisher, plot **
 9780143039990 War and Peace          Russia, London, Russia
 9781461035930 The Tempest            not found, Naples, not found
-9781594631931 Kite Runner    ERROR   gets an Indicoio error
-9780743273565 Great Gatsby   ERROR   gets a DisambiguationError for publisher
+9781594631931 Kite Runner            US, not found, Kabul
+9780743273565 Great Gatsby           US, not specific enough, West Egg
 9780679886181 Jane Eyre              UK, US, London
 9780316769488 Catcher in the Rye     US, NYC, Rye (lol)
 9780486280615 Huckleberry Finn       book not found on Wikipedia
