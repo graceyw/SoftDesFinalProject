@@ -38,7 +38,7 @@ def getPlotLocation(book):
             print("Disambuguation")
             loc = find_plot_country(book.title + ' (novel)')
         if loc is 'StopIteration':
-            return 'Author location not found on Wikipedia'
+            return 'Plot location not found on Wikipedia'
         if loc is 'PageError':
             return 'Book not found on Wikipedia'
         return loc
@@ -114,19 +114,20 @@ def find_plot_country(book_page_name):
         return 'PageError'
     # page_summary = page_results.summary
     places = []
-    page_plot = page_results.section("Plot")
+    page_plot = page_results.section('Plot')
     if page_plot is not None and page_plot != '':
         places = indicoio.places(page_plot)
 
     if places == []:
-        print('Searching summary section...')
         page_summary = page_results.summary
         # page_plot = page_results.section("Plot")
         places = indicoio.places(page_summary)
-    print(places)
+    # print(places)
     potentials = []
     for item in places:
         potentials.append((item['confidence'], item['text']))
     potentials.sort(reverse=True)
 
-    return potentials[0][1]
+    if places != []:
+        return potentials[0][1]
+    return 'Plot location not found on Wikipedia'

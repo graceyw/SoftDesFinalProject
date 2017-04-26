@@ -10,6 +10,16 @@ class Book:
         self.isbn = isbn
         self.gotInfo = False
         self.hasInfo = False
+
+        self.title = None
+        self.author = None
+        self.publisher = None
+        self.year = None
+        self.language = None
+        self.authorLoc = None
+        self.publisherLoc = None
+        self.plotLoc = None
+
         self.has = {'title': 0,
                     'author': 0,
                     'publisher': 0,
@@ -39,9 +49,18 @@ class Book:
         self.updateMissing()
 
     def getLocations(self):
-        self.authorLoc = textMiner.getAuthorLocation(self)
-        self.publisherLoc = textMiner.getPublisherLocation(self)
-        self.plotLoc = textMiner.getPlotLocation(self)
+        if self.has['author'] and self.author != '':
+            self.authorLoc = textMiner.getAuthorLocation(self)
+        else:
+            self.authorLoc = 'Book is missing author info'
+        if self.has['publisher'] and self.publisher != '':
+            self.publisherLoc = textMiner.getPublisherLocation(self)
+        else:
+            self.publisherLoc = 'Book is missing publisher info'
+        if self.has['title'] and self.title != '':
+            self.plotLoc = textMiner.getPlotLocation(self)
+        else:
+            self.plotLoc = 'Book is missing title'
         self.updateMissing()
 
     def __str__(self):
