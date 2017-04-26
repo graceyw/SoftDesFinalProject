@@ -112,14 +112,21 @@ def find_plot_country(book_page_name):
         return 'DisambiguationError'
     except wikipedia.exceptions.PageError:
         return 'PageError'
-    page_summary = page_results.summary
-    places = indicoio.places(page_summary)
+    # page_summary = page_results.summary
+    places = []
+    page_plot = page_results.section("Plot")
+    if page_plot is not None and page_plot != '':
+        places = indicoio.places(page_plot)
 
     if places == []:
-        page_plot = page_results.section("Plot")
-        plot_places = indicoio.places(page_plot)
-        pp = plot_places[0]['text']
-        return pp
+        print('Searching summary section...')
+        page_summary = page_results.summary
+        # page_plot = page_results.section("Plot")
+        places = indicoio.places(page_summary)
+    print(places)
+    potentials = []
+    for item in places:
+        potentials.append((item['confidence'], item['text']))
+    potentials.sort(reverse=True)
 
-    ps = places[0]['text']
-    return ps
+    return potentials[0][1]
