@@ -128,6 +128,6 @@ def find_plot_country(book_page_name):
         potentials.append((item['confidence'], item['text']))
     potentials.sort(reverse=True)
 
-    if places != []:
+    if potentials != []:
         return potentials[0][1]
     return 'Plot location not found on Wikipedia'
