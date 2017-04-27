@@ -6,7 +6,7 @@ import textMiner
 
 class Book:
 
-    def __init__(self, isbn):
+    def __init__(self, isbn):  # TODO create instantiation case for title
         self.isbn = isbn
         self.gotInfo = False
         self.hasInfo = False

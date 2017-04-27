@@ -23,12 +23,41 @@ def getIsbn():
     return code
 
 
+def pickInput():
+    choice = ''
+    while choice != 's' and choice != 't':
+        choice = input("Press 's' to scan or enter ISBN or 't' to enter title: ")
+        if choice == 'x':
+            return False
+    return choice
+
+
+def getTitle():
+    title = input("Enter a book title: ")
+    if title == 'x':
+        return False
+    return title
+
+
 def doEverything():
     while True:
-        isbn = getIsbn()
+        choice = pickInput()
+
+        if choice == 's':
+            isbn = getIsbn()
+            if not isbn:  # Exit program when 'x' entered
+                break
+            thisBook = Book(isbn)
+
+        elif choice == 't':
+            title = getTitle()
+            if not title:  # Exit program when 'x' entered
+                break
+            thisBook = Book(title)
+        else:
+            break
         if not isbn:  # Exit program when 'x' entered
             break
-        thisBook = Book(isbn)
         thisBook.getInfo()
         thisBook.getLocations()
         print(thisBook)
