@@ -62,8 +62,8 @@ def doEverything():
             thisBook.getInfo()
         thisBook.getLocations()
         print(thisBook)
-        plotGraph(thisBook)
-        return thisBook
+        # plotGraph(thisBook)
+        # return thisBook
 
 
 if __name__ == '__main__':
