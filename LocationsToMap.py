@@ -4,7 +4,7 @@ the Author, Plot and Publisher.'''
 
 import folium
 from opencage.geocoder import OpenCageGeocode
-from geokey import geokey
+from key import geokey
 from time import sleep
 
 
