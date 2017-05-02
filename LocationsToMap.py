@@ -16,6 +16,7 @@ def geocode(place):
     else:
         longitude = location[0]['geometry']['lng']
         latitude = location[0]["geometry"]["lat"]
+        print(latitude, longitude)
         return [latitude, longitude]
 
 
