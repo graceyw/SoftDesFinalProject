@@ -9,8 +9,11 @@ from geopy.geocoders import Nominatim
 def geocode(place):
     geolocator = Nominatim()
     location = geolocator.geocode(place)
-    print([location.latitude, location.longitude])
-    return [location.latitude, location.longitude]
+    print(location)
+    if location is None:
+        pass
+    else:
+        return [location.latitude, location.longitude]
 
 
 def plotGraph(book):
