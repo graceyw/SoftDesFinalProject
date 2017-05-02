@@ -11,10 +11,12 @@ from time import sleep
 def geocode(place):
     geocoder = OpenCageGeocode(geokey)
     location = geocoder.geocode(place, key=geokey)
-    longitude = location[0]['geometry']['lng']
-    latitude = location[0]["geometry"]["lat"]
-    print(latitude, longitude)
-    return [latitude, longitude]
+    if location == []:
+        pass
+    else:
+        longitude = location[0]['geometry']['lng']
+        latitude = location[0]["geometry"]["lat"]
+        return [latitude, longitude]
 
 
 def plotGraph(book):
