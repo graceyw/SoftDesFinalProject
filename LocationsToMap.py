@@ -5,6 +5,7 @@ the Author, Plot and Publisher.'''
 import folium
 from opencage.geocoder import OpenCageGeocode
 from geokey import geokey
+from time import sleep
 
 
 def geocode(place):
@@ -22,12 +23,12 @@ def plotGraph(book):
                   icon=folium.Icon(color='red'),
                   popup='{} is from {}'.format(book.author, book.authorLoc)
                   ).add_to(map1)
-
+    sleep(1)
     folium.Marker(geocode(book.publisherLoc),
                   icon=folium.Icon(color='green'),
                   popup='This edition was published in {}'.format(book.publisherLoc)
                   ).add_to(map1)
-
+    sleep(1)
     folium.Marker(geocode(book.plotLoc),
                   icon=folium.Icon(color='blue'),
                   popup='{} takes place in {}'.format(book.title, book.plotLoc),
