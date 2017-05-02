@@ -56,9 +56,10 @@ def doEverything():
             thisBook = Book(title)
         else:
             break
-        if not isbn:  # Exit program when 'x' entered
-            break
-        thisBook.getInfo()
+        # if not isbn:  # Exit program when 'x' entered
+        #     break
+        if choice == 's':
+            thisBook.getInfo()
         thisBook.getLocations()
         print(thisBook)
         plotGraph(thisBook)

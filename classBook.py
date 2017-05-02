@@ -7,11 +7,31 @@ import textMiner
 class Book:
 
     def __init__(self, isbn):  # TODO create instantiation case for title
-        self.isbn = isbn
+        self.has = {'isbn': 0,
+                    'title': 0,
+                    'author': 0,
+                    'publisher': 0,
+                    'year': 0,
+                    'language': 0,
+                    'authorLoc': 0,
+                    'publisherLoc': 0,
+                    'plotLoc': 0}
+
+        if isbnlib.notisbn(isbn):
+            self.title = isbn
+            self.isbn = None
+            self.has['title'] = 1
+            self.has['isbn'] = 0
+
+        else:
+            self.isbn = isbn
+            self.title = None
+            self.has['title'] = 0
+            self.has['isbn'] = 1
+
         self.gotInfo = False
         self.hasInfo = False
 
-        self.title = None
         self.author = None
         self.publisher = None
         self.year = None
@@ -49,10 +69,10 @@ class Book:
         self.updateMissing()
 
     def getLocations(self):
-        if self.has['author'] and self.author != '':
+        if self.has['title'] and self.title != '':
             self.authorLoc = textMiner.getAuthorLocation(self)
         else:
-            self.authorLoc = 'Book is missing author info'
+            self.authorLoc = 'Book is missing title'
         if self.has['publisher'] and self.publisher != '':
             self.publisherLoc = textMiner.getPublisherLocation(self)
         else:
@@ -91,26 +111,26 @@ class Book:
         return infoString
 
     def updateMissing(self):
-        if self.title is not None:
+        if self.title is not None and self.title != '':
             self.has['title'] = 1
 
-        if self.author is not None:
+        if self.author is not None and self.author != '':
             self.has['author'] = 1
 
-        if self.publisher is not None:
+        if self.publisher is not None and self.publisher != '':
             self.has['publisher'] = 1
 
-        if self.year is not None:
+        if self.year is not None and self.year != '':
             self.has['year'] = 1
 
-        if self.language is not None:
+        if self.language is not None and self.language != '':
             self.has['language'] = 1
 
-        if self.authorLoc is not None:
+        if self.authorLoc is not None and self.authorLoc != '':
             self.has['authorLoc'] = 1
 
-        if self.publisherLoc is not None:
+        if self.publisherLoc is not None and self.publisherLoc != '':
             self.has['publisherLoc'] = 1
 
-        if self.plotLoc is not None:
+        if self.plotLoc is not None and self.plotLoc != '':
             self.has['plotLoc'] = 1
