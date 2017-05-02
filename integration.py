@@ -62,7 +62,7 @@ def doEverything():
             thisBook.getInfo()
         thisBook.getLocations()
         print(thisBook)
-        # plotGraph(thisBook)
+        plotGraph(thisBook)
         # return thisBook
 
 
