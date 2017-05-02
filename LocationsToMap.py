@@ -3,17 +3,17 @@
 the Author, Plot and Publisher.'''
 
 import folium
-from geopy.geocoders import Nominatim
+from opencage.geocoder import OpenCageGeocode
+from geokey import geokey
 
 
 def geocode(place):
-    geolocator = Nominatim()
-    location = geolocator.geocode(place)
-    print(location)
-    if location is None:
-        pass
-    else:
-        return [location.latitude, location.longitude]
+    geocoder = OpenCageGeocode(geokey)
+    location = geocoder.geocode(place, key=geokey)
+    longitude = location[0]['geometry']['lng']
+    latitude = location[0]["geometry"]["lat"]
+    print(latitude, longitude)
+    return [latitude, longitude]
 
 
 def plotGraph(book):
@@ -37,22 +37,3 @@ def plotGraph(book):
 
 if __name__ == '__main__':
     pass
-    # book = Book('9780143039990')
-    # book.getInfo()
-    # plotGraph(book)
-
-    # HarryPotter = Book('9780747560777')
-    # HarryPotter.getInfo()
-    # plotGraph(HarryPotter)
-
-    # KiteRunner = Book('9781594631931')
-    # KiteRunner.getInfo()
-    #
-    # KiteRunner.authorLoc = "Afghanistan"
-    # KiteRunner.plotLoc = "Pakistan, Fremont, CA"
-    # KiteRunner.publisherLoc = "United States"
-    # plotGraph(KiteRunner)
-
-    # Tempest = Book('9781461035930')
-    # Tempest.getInfo()
-    # plotGraph(Tempest)
