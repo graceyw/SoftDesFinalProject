@@ -3,4 +3,4 @@
 
 Our new repo with the final code is here: https://github.com/SamEpp/WTBF
 
-Visit our website here: https://github.com/SamEpp/WTBF
+Visit our website here: https://samepp.github.io/WTBF/
