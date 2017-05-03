@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 key.py
 geokey.py
+map.html
 
 # C extensions
 *.so
