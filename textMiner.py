@@ -1,6 +1,5 @@
 
 import wikipedia
-# from text_mining_wiki_test import find_author_origin
 from bs4 import BeautifulSoup
 import indicoio
 from key import indico_key
@@ -8,7 +7,7 @@ indicoio.config.api_key = indico_key
 
 
 def getAuthorLocation(book):
-    if book.has['title']:
+    if book.title != '':
         loc = find_author_origin(book.title)
         if loc is 'DisambiguationError':
             loc = find_author_origin(book.title + ' (novel)')
@@ -21,7 +20,7 @@ def getAuthorLocation(book):
 
 
 def getPublisherLocation(book):
-    if book.has['publisher']:
+    if book.publisher != '':
         loc = find_publisher_location(book.publisher)
         if loc is 'PageError':
             return 'Publisher not found on Wikipedia'
@@ -32,7 +31,7 @@ def getPublisherLocation(book):
 
 
 def getPlotLocation(book):
-    if book.has['title']:
+    if book.title != '':
         loc = find_plot_country(book.title)
         if loc is 'DisambiguationError':
             print("Disambuguation")
@@ -53,18 +52,17 @@ def find_author_origin(book_page_name):
     Common user errors will probably include: inputting just the title of a book
     when the title of its wikipedia page contains more than simply the title of
     the book (i.e. "Emma (novel)").'''
-    # Works for books with Gatsby, Name of the Wind, War and Peace
-    # Does not work for: Harry Potter, Artemis Fowl
+
     try:
         page_results = wikipedia.page(book_page_name)
     except wikipedia.exceptions.DisambiguationError:
         return 'DisambiguationError'
     except wikipedia.exceptions.PageError:
         return 'PageError'
-    page_html = page_results.html()    # generate the page's html. TODO Could be optimized by only generating the first x char
-    soup = BeautifulSoup(page_html, "lxml")    # make it readable (not nessassary after testing)
+    page_html = page_results.html()    # generate the page's html.
+    soup = BeautifulSoup(page_html, "lxml")    # make it readable
     table = soup.findAll("table", {"class": "infobox"})  # select all parts that are prefixed by <th> (includes the country of the book)
-                                                           # TODO This could prob be optimized by begining approx 800 char in.
+
     all_th = soup.table.find_all('th')
     try:
         country_header = next(element for element in all_th if element.getText() == 'Country')
@@ -75,13 +73,6 @@ def find_author_origin(book_page_name):
 
 
 def find_publisher_location(book_publisher):
-    # Input: the name of a book's publisher
-    # Returns: the country where the book was published
-
-    # Works: 9780486295060 (Dover Publications)
-    #        9780375842207 (Alfred A. Knopf)
-    #         9780199583027 (Oxford University Press)
-    # Does not work for: Harry Potter, Artemis Fowl
     try:
         page_results = wikipedia.page(book_publisher)
     except wikipedia.exceptions.PageError:
@@ -112,7 +103,6 @@ def find_plot_country(book_page_name):
         return 'DisambiguationError'
     except wikipedia.exceptions.PageError:
         return 'PageError'
-    # page_summary = page_results.summary
     places = []
     page_plot = page_results.section('Plot')
     if page_plot is not None and page_plot != '':
@@ -120,9 +110,7 @@ def find_plot_country(book_page_name):
 
     if places == []:
         page_summary = page_results.summary
-        # page_plot = page_results.section("Plot")
         places = indicoio.places(page_summary)
-    # print(places)
     potentials = []
     for item in places:
         potentials.append((item['confidence'], item['text']))
