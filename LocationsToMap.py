@@ -4,7 +4,7 @@ the Author, Plot and Publisher.'''
 
 import folium   # library for data visualization on maps
 from opencage.geocoder import OpenCageGeocode  # geocoding service
-from key import geokey
+from key import geo_key
 from time import sleep
 
 
@@ -15,8 +15,8 @@ def geocode(place):
     INPUT: a place name as an attribute of a book object
     OUTPUT: a list containing the latitude and longitude for that place
     """
-    geocoder = OpenCageGeocode(geokey)
-    location = geocoder.geocode(place, key=geokey)
+    geocoder = OpenCageGeocode(geo_key)
+    location = geocoder.geocode(place, key=geo_key)
     # We search wikipedia for 3 locations, but don't always get 3.
     # If a location isn't found, it's an empty list, so we do not plot it.
     if location == []:
