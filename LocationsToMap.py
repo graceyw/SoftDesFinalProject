@@ -24,7 +24,7 @@ def geocode(place):
     else:
         longitude = location[0]['geometry']['lng']  # lat/long are within a nested
         latitude = location[0]["geometry"]["lat"]   # results dictionary under geometry
-        # print(latitude, longitude)
+        print(latitude, longitude)
         return [latitude, longitude]
 
 
@@ -46,8 +46,8 @@ def plotGraph(book):
               'This edition was published in {}'.format(book.publisherLoc),
               '{} takes place in {}'.format(book.title, book.plotLoc)]
 
-    for i in range(1, 3):
-        print(i)
+    # Loops through lists above to create markers
+    for i in range(0, 3):
         if locations[i] == []:
             pass
         else:
@@ -55,7 +55,7 @@ def plotGraph(book):
                           icon=folium.Icon(color=colors[i]),
                           popup=popups[i]
                           ).add_to(map1)
-    sleep(1)
+        sleep(1)  # Delays calls to open cage geocoder
     map1.save('map.html')
 
 
